@@ -1,0 +1,3 @@
+src/config/config.properties
+src/models/BarangModel.php
+src/controllers/Barang.php
