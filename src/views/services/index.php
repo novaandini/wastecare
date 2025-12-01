@@ -12,9 +12,9 @@
         <div class="border-b-2 border-black flex justify-between items-center pb-2">
             <p class="font-bold">WasteCare</p>
             <ul class="flex justify-between w-2/5 items-center">
-                <li class="font-bold"><a href="<?= BASEURL . '/index' ?>">Home</a></li>
+                <li><a href="<?= BASEURL . '/index' ?>">Home</a></li>
                 <li><a href="<?= BASEURL . '/about' ?>">About</a></li>
-                <li><a href="<?= BASEURL . '/services' ?>">Services</a></li>
+                <li class="font-bold"><a href="<?= BASEURL . '/services' ?>">Services</a></li>
                 <li><a href="<?= BASEURL . '/blogs' ?>">Blogs</a></li>
                 <li><a href="<?= BASEURL . '/login' ?>" class="rounded-full border-black border-1 py-1 px-6">Login</a></li>
             </ul>

@@ -12,7 +12,7 @@
         <div class="border-b-2 border-black flex justify-between items-center pb-2">
             <p class="font-bold">WasteCare</p>
             <ul class="flex justify-between w-2/5 items-center">
-                <li class="font-bold"><a href="<?= BASEURL . '/index' ?>">Home</a></li>
+                <li><a href="<?= BASEURL . '/index' ?>">Home</a></li>
                 <li><a href="<?= BASEURL . '/about' ?>">About</a></li>
                 <li class="font-bold"><a href="<?= BASEURL . '/services' ?>">Services</a></li>
                 <li><a href="<?= BASEURL . '/blogs' ?>">Blogs</a></li>
@@ -20,7 +20,7 @@
             </ul>
         </div>
     </nav>
-    <div class="rounded-3xl mx-12 mt-64 flex mb-16 gap-16">
+    <div class="rounded-3xl mx-12 mt-32 flex mb-16 gap-16">
         <div class="w-1/3 rounded-xl bg-gray-300"></div>
         <div class="w-2/3">
             <h1 class="text-2xl font-bold">Jasa Pengangkutan dan Pengelolaan Sampah di Bali</h1>
