@@ -44,6 +44,7 @@ class App {
             $path = explode('/', ltrim(rtrim($handler['path'], '/'), '/'));
             $kurl = (isset($url[0]) ? $url[0] : '') . (isset($url[1]) ? $url[1] : '');
             $kpath = (isset($path[0]) ? $path[0] : '') . (isset($path[1]) ? $path[1] : '');
+            // var_dump($kurl); die;
             
             if ($kurl != '' && $kurl == $kpath && $requested_method == $handler['method']) {
                 if (isset($handler['handler'][0]) && file_exists(__DIR__ . '/../controllers/' . $handler['handler'][0] . '.php')) {
