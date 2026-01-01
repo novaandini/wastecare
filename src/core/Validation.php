@@ -6,7 +6,7 @@ class Validation {
         'email' => '%s email tidak valid',
         'min' => '%s harus lebih dari %d karakter',
         'max' => '%s harus kurang dari %d karakter',
-        'between' => '%d harus di antara %d dan %d katakter',
+        'between' => '%s harus di antara %d dan %d katakter',
         'same' => '%s dan %s tidak sama',
         'alphanumeric' => '%s harus diisi dengan huruf dan angka',
         'secure' => '%s jumlah di antara 8 dan 64 karakter dan ada angka, huruf besar, huruf kecil, dan karakter spesial',
@@ -16,14 +16,14 @@ class Validation {
     public function validate(array $data, array $fields, array $messages = []): array {
         $split = fn($str, $sparator) => array_map('trim', explode($sparator, $str));
         $rule_messages = array_filter($messages, fn($message) => is_string($message));
-        $validaation_errors = array_merge(self::DEFAULT_VALIDATION_ERRORS, $rule_messages);
+        $validation_errors = array_merge(self::DEFAULT_VALIDATION_ERRORS, $rule_messages);
         $errors = [];
 
         foreach ($fields as $field => $option) {
             $rules = $split($option, '|');
             foreach ($rules as $rule) {
                 $params = [];
-                if (strpos($rule, ':')) {
+                if (strpos($rule, ':') !== false) {
                     [$rule_name, $param_str] = $split($rule, ':');
                     $params = $split($param_str, ',');
                 } else {
@@ -31,11 +31,11 @@ class Validation {
                 }
 
                 $fn = 'is_' . $rule_name;
-                if (method_exists(new Validation(), $fn)) {
+                if (method_exists($this, $fn)) {
                     $pass = $this->$fn($data, $field, ...$params);
                     if (!$pass) {
                         array_push($errors, sprintf(
-                            $messages[$field][$rule_name] ?? $validaation_errors[$rule_name],
+                            $messages[$field][$rule_name] ?? $validation_errors[$rule_name],
                             str_replace("_", " ", $field),
                             ...$params
                         ));
@@ -104,19 +104,21 @@ class Validation {
     }
 
     public function is_secure(array $data, string $field): bool {
-        if (!isset($data[$field])) {
+        if (!isset($data[$field]) || $data[$field] === '') {
             return true;
         }
 
-        $pattern = "#.*^(?=.{8,64})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$#";
-        return preg_match($pattern, $data[$field]);
+        $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,64}$/';
+
+        return (bool) preg_match($pattern, $data[$field]);
     }
+
 
     public function is_unique(array $data, string $field): bool {
         if (!isset($data[$field])) {
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 }

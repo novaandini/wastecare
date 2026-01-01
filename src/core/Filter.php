@@ -6,15 +6,22 @@ class Filter {
         $validation = [];
 
         foreach ($fields as $field => $rules) {
-            if (strpos($rules, '|')) {
-                [$sanitization[$field], $validation[$field]] = explode('|', $rules, 2);
+            if (strpos($rules, '|') !== false) {
+                [$sanitizeRule, $validateRule] = array_map(
+                    'trim',
+                    explode('|', $rules, 2)
+                );
+                $sanitization[$field] = $sanitizeRule;
+                $validation[$field] = $validateRule;
             } else {
-                $sanitization[$field] = $rules;
+                $sanitization[$field] = trim($rules);
+                $validation[$field] = '';
             }
         }
 
         $sanitize = new Sanitization();
         $inputs = $sanitize->sanitize($data, $sanitization);
+
         $validate = new Validation();
         $errors = $validate->validate($inputs, $validation, $messages);
 

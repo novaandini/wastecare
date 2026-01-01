@@ -5,29 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../../public/css/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
     <nav id="navbar" class="px-12 pt-8 fixed inset-x-0 top-0  bg-transparent transition-all duration-300 z-50">
         <div class="border-b-2 border-black flex justify-between items-center pb-2">
-            <p class="font-bold">WasteCare</p>
+            <p class="font-shrikhand">WasteCare</p>
             <ul class="flex justify-between w-2/5 items-center">
-                <li><a href="<?= BASEURL . '/index' ?>">Home</a></li>
+                <li><a href="<?= BASEURL . '' ?>">Home</a></li>
                 <li class="font-bold"><a href="<?= BASEURL . '/about' ?>">About</a></li>
                 <li><a href="<?= BASEURL . '/services' ?>">Services</a></li>
-                <li><a href="<?= BASEURL . '/blogs' ?>">Blogs</a></li>
+                <!-- <li><a href="<?php // echo BASEURL . '/blogs' ?>">Blogs</a></li> -->
+                <?php if (!isset($_SESSION['user'])) : ?>
                 <li><a href="<?= BASEURL . '/login' ?>" class="rounded-full border-black border-1 py-1 px-6">Login</a></li>
+                <?php else : ?>
+                    <li><a href="<?= BASEURL . '/logout' ?>" class="rounded-full border-black border-1 py-1 px-6">Logout</a></li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>
     <div class="bg-gray-300 rounded-3xl m-4 px-16 py-56 flex flex-col justify-center mb-16">
-        <h1 class="md:text-8xl lg:text-9xl text-4xl font-bold text-center mb-4">About</h1>
+        <h1 class="md:text-8xl lg:text-9xl text-4xl font-shrikhand text-center mb-4 uppercase">About</h1>
         <p class="md:text-2xl text-lg text-center mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, aliquid? Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus?</p>
         <a href="" class="m-auto rounded-full border-black border-2 py-2 px-8 md:text-xl text-base font-bold">Cerita Kami</a>
     </div>
     <div class="w-6xl m-auto mb-16">
         <div class="">
-            <h2 class="text-4xl font-bold mb-4">Why Choose Us?</h2>
+            <h2 class="text-4xl font-shrikhand mb-4">Why Choose Us?</h2>
             <p class="text-xl mb-4 w-5xl">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, aliquid? Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus?</p>
             <div class="flex justify-between">
                 <div class="">
@@ -55,7 +61,7 @@
     <footer class="bg-[#0A452B] text-white py-8">
         <div class="w-6xl flex justify-between m-auto">
             <div class="w-1/3">
-                <h5 class="text-2xl font-bold mb-2">WasteCare</h5>
+                <h5 class="text-2xl font-shrikhand mb-2">WasteCare</h5>
                 <p class="text-base">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, aliquid? Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus?</p>
             </div>
             <div class="">

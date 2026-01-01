@@ -1,3 +1,7 @@
+<?php
+
+Message::flash();
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -18,7 +22,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <a href="<?= BASEURL . '/admin/services/create' ?>" class="btn btn-inline btn-primary"><i class="fas fa-copy"></i> Create</a>
+              <a href="<?= BASEURL . '/manage_services/create' ?>" class="btn btn-inline btn-primary"><i class="fas fa-copy"></i> Create</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -26,28 +30,36 @@
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Institution</th>
-                    <th>Price</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th class="">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php foreach ($data as $row) : ?>
                   <tr>
-                    <td><?= $row->service_name ?></td>
-                    <td><?= $row->institution->name ?></td>
-                    <td><?= $row->price ?>/td>
-                    <td><?= $row->status ?></td>
-                    <td>
-                      <a href="<?= BASEURL . 'services/edit/' . $row->service_id ?>">
+                    <td><?= $row["name"] ?></td>
+                    <td style="width: 15px;">
+                      <?php if ($row['is_active']) : ?>
+                        Aktif
+                      <?php else : ?>
+                        Nonaktif
+                      <?php endif; ?>
+                    </td>
+                    <td class="d-flex flex-wrap">
+                      <a href="<?= BASEURL . '/manage_services/edit/' . $row["service_id"] ?>" class="btn mr-2 mb-2 btn-primary me-3">
                         <i class="fas fa-copy"></i> Edit
                       </a>
-                      <form action="<?= BASEURL . '/services/delete/' . $row->service_id ?>" method="post">
-                        <button type="submit">
-                          <i class="fas fa-copy"></i> Delete
-                        </button>
+                      <form action="<?= BASEURL ?>/manage_services/delete/<?= $row['service_id'] ?>"
+                      method="post"
+                      class="mr-2 mb-2 delete-form">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
                       </form>
+                      <a href="<?= BASEURL . '/manage_service_details/' . $row["service_id"] ?>" class="mr-2 mb-2 btn btn-info me-3">
+                        <i class="fas fa-copy"></i> Detail
+                      </a>
+                      <a href="<?= BASEURL . '/manage_service_packages/' . $row["service_id"] ?>" class="mr-2 mb-2 btn btn-secondary me-3">
+                        <i class="fas fa-copy"></i> Package
+                      </a>
                     </td>
                   </tr>
                   <?php endforeach ?>
@@ -55,8 +67,6 @@
                 <tfoot>
                   <tr>
                     <th>Name</th>
-                    <th>Institution</th>
-                    <th>Price</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>

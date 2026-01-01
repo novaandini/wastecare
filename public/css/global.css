@@ -7,3 +7,11 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-shrikhand {
+  font-family: 'Shrikhand', cursive;
+}

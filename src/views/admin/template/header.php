@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="../../../../public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../../../public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../../../public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropify/dist/css/dropify.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../../public/css/adminlte.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -59,7 +61,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"><?= $_SESSION['user']['name'] ?></a>
         </div>
       </div>
 
@@ -81,7 +83,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?= BASEURL . '/admin/dashboard' ?>" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -89,30 +91,60 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Registered Institution
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?= BASEURL . '/manage_regions' ?>" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Orders
-                <span class="badge badge-info right">6</span>
+                Regions
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+            <a href="<?= BASEURL . '/manage_vehicles' ?>" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Vehicles
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= BASEURL . '/manage_services' ?>" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie" id="btn-logout"></i>
               <p>
                 Services
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                Orders
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= BASEURL . '/admin/subscription/pending' ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pending</p>
+                  <span class="badge badge-info right">6</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../UI/general.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Active</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../UI/buttons.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inactive</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <?php if ($_SESSION['user']['role'] == 'admin') : ?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
@@ -123,24 +155,30 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../UI/general.html" class="nav-link">
+                <a href="<?= BASEURL . '/manage_users/admin' ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admin</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../UI/icons.html" class="nav-link">
+                <a href="<?= BASEURL . '/manage_users/staff' ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Institution</p>
+                  <p>Staff</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../UI/buttons.html" class="nav-link">
+                <a href="<?= BASEURL . '/manage_users/user' ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users</p>
                 </a>
               </li>
             </ul>
+            <?php endif; ?>
+          </li>
+          <li class="nav-item">
+            <a href="<?= BASEURL ?>/logout" id="btn-logout" class="dropdown-item text-danger">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
           </li>
         </ul>
       </nav>

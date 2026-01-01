@@ -1,15 +1,20 @@
 <?php
 
-use Soap\Url;
-
 class App {
-    private $controllerFile='DefaultApp';
-    private $controllerMethod='index';
-    private $parameter=[];
+    private $controllerFile;
+    private $controllerMethod;
+    private $parameter = [];
+    private const DEFAULT_GET = 'GET';
+    private const DEFAULT_POST = 'POST';
+    private $handlers = [];
 
-    private const DEFAULT_GET='GET';
-    private const DEFAULT_POST='POST';
-    private $handlers=[];
+    public function get($uri, $callback) {
+        $this->setHandler(self::DEFAULT_GET, $uri, $callback);
+    }
+
+    public function post($uri, $callback) {
+        $this->setHandler(self::DEFAULT_POST, $uri, $callback);
+    }
 
     public function setDefaultController($controller) {
         $this->controllerFile = $controller;
@@ -19,78 +24,71 @@ class App {
         $this->controllerMethod = $method;
     }
 
-    public function get($uri, $callback) {
-        $this->setHandler(self::DEFAULT_GET, $uri, $callback);
-    }
-    
-    public function post($uri, $callback) {
-        $this->setHandler(self::DEFAULT_POST, $uri, $callback);
-    }
-
-    private function setHandler(string $method, string $path, $handler)
-    {
-        $this->handlers[$method . $path] = [
-            'path' => $path,
+    private function setHandler(string $method, string $path, $handler) {
+        $this->handlers[] = [
+            'path' => trim($path, '/'),
             'method' => $method,
             'handler' => $handler,
         ];
     }
-    
+
     public function run() {
-        $execute = 0;
         $url = $this->getUrl();
         $requested_method = $_SERVER['REQUEST_METHOD'];
-        foreach ($this->handlers as $handler) {
-            $path = explode('/', ltrim(rtrim($handler['path'], '/'), '/'));
-            $kurl = (isset($url[0]) ? $url[0] : '') . (isset($url[1]) ? $url[1] : '');
-            $kpath = (isset($path[0]) ? $path[0] : '') . (isset($path[1]) ? $path[1] : '');
-            // var_dump($kurl); die;
-            
-            if ($kurl != '' && $kurl == $kpath && $requested_method == $handler['method']) {
-                if (isset($handler['handler'][0]) && file_exists(__DIR__ . '/../controllers/' . $handler['handler'][0] . '.php')) {
-                    $this->controllerFile = $handler['handler'][0];
-                    unset($url[0]);
-                }
-                require_once __DIR__ . '/../controllers/' . $this->controllerFile . '.php';
-                $this->controllerFile = new $this->controllerFile;
-                $execute = 1;
+        $found = false;
 
-                if (isset($handler['handler'][1]) && method_exists($this->controllerFile, $handler['handler'][1])) {
-                    $this->controllerMethod = $handler['handler'][1];
-                    unset($url[1]);
+        foreach ($this->handlers as $handler) {
+            $routeSegments = $handler['path'] === '' ? [''] : explode('/', $handler['path']);
+
+            if ($requested_method === $handler['method'] && $this->matchPath($url, $routeSegments)) {
+                $this->controllerFile = $handler['handler'][0];
+                $this->controllerMethod = $handler['handler'][1];
+
+                // ambil sisa URL sebagai parameter dinamis
+                
+                $this->parameter = [];
+                foreach ($routeSegments as $i => $segment) {
+                    if (str_starts_with($segment, '(:') && str_ends_with($segment, ')')) {
+                        $this->parameter[] = $url[$i];
+                    }
                 }
+                $found = true;
+                break;
             }
         }
 
-        // if ($url && file_exists(__DIR__ . '/../controllers/' . $url[0] . '.php')) {
-        //     $this->controllerFile = $url[0];
-        //     unset($url[0]);
-        // }
-
-        if ($execute == 0) {
-            require_once __DIR__ . '/../controllers/' . $this->controllerFile . '.php';
-            $this->controllerFile = new $this->controllerFile;
+        if (!$found) {
+            header("HTTP/1.0 404 Not Found");
+            echo "404 Not Found";
+            exit;
         }
 
+        // Load controller & panggil method
+        require_once __DIR__ . '/../controllers/' . $this->controllerFile . '.php';
+        $controller = new $this->controllerFile;
+        call_user_func_array([$controller, $this->controllerMethod], $this->parameter);
+    }
 
-        // if (isset($url[1])) {
-        //     if (method_exists($this->controllerFile, $url[1])) {
-        //         $this->controllerMethod = $url[1];
-        //         unset($url[1]);
-        //     }
-        // }
+    private function matchPath($urlSegments, $routeSegments) {
+        if (count($urlSegments) !== count($routeSegments)) return false;
 
-        if (!empty($url)) {
-            $this->parameter = array_values($url);
+        foreach ($routeSegments as $i => $segment) {
+            if (str_starts_with($segment, '(:') && str_ends_with($segment, ')')) {
+                continue; // parameter dinamis
+            }
+            if (!isset($urlSegments[$i]) || $urlSegments[$i] !== $segment) {
+                return false;
+            }
         }
-
-        call_user_func_array([$this->controllerFile, $this->controllerMethod], $this->parameter);
+        return true;
     }
 
     private function getUrl() {
-        $url = rtrim($_SERVER['QUERY_STRING'],'/');
-        $url = filter_var($url, FILTER_SANITIZE_URL);
-        $url = explode('/', $url);
-        return $url;
+        $uri = $_SERVER['REQUEST_URI'];
+        $uri = parse_url($uri, PHP_URL_PATH);
+        $uri = trim($uri, '/');
+
+        // root '/'
+        return $uri === '' ? [''] : explode('/', $uri);
     }
 }

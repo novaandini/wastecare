@@ -48,9 +48,8 @@ class Sanitization {
     ): array {
         if ($fields) {
             foreach ($fields as $key => $field) {
-                if ($field == "string") {
-                    $tempvar = strip_tags($inputs[$key]);
-                    $inputs[$key] = $tempvar;
+                if ($field === 'string' && isset($inputs[$key])) {
+                    $inputs[$key] = strip_tags($inputs[$key]);
                 }
             }
             $options = array_map(fn($field) => $filters[trim($field)], $fields);
@@ -59,6 +58,7 @@ class Sanitization {
             $data = filter_var_array($inputs, $default_filter);
         }
 
+        $data = $data ?? [];
         return $trim ? $this->array_trim($data) : $data;
     }
 }

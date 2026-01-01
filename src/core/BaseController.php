@@ -9,10 +9,12 @@ class BaseController extends Filter {
         require_once '../src/views/'.$view.'.php';
     }
 
-    public function redirect($url) {
-        header('Location: '.$url);
+    protected function redirect($path)
+    {
+        header("Location: " . BASEURL . '/' . ltrim($path, '/'));
         exit;
     }
+
 
     public function model($model) {
         require_once '../src/models/'.$model.'.php';

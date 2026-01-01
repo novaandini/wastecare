@@ -1,7 +1,7 @@
 <?php
 
 class Database {
-    private $conn;
+    protected $conn;
 
     public function __construct()
     {
@@ -23,9 +23,22 @@ class Database {
         }
     }
 
-    public function qry($query, $params = []) {
+    public function qry($query, $params = [])
+    {
         $stmt = $this->conn->prepare($query);
         $stmt->execute($params);
         return $stmt;
+    }
+
+    public function beginTransaction() {
+        return $this->conn->beginTransaction();
+    }
+
+    public function commit() {
+        return $this->conn->commit();
+    }
+
+    public function rollBack() {
+        return $this->conn->rollBack();
     }
 }
