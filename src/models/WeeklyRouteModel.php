@@ -14,7 +14,7 @@ class WeeklyRouteModel extends Database {
     public function getBySubscription($subscription_id)
     {
         return $this->qry(
-            "SELECT * FROM weekly_routes WHERE subscription_id = :subsctiption_id",
+            "SELECT * FROM weekly_routes WHERE subscription_id = :subscription_id",
             ['subscription_id' => $subscription_id]
         )->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -37,13 +37,13 @@ class WeeklyRouteModel extends Database {
     public function update($id, $data) {
         return $this->qry(
             "UPDATE weekly_routes SET
-                title  = :title,
-                content = :content,
+                vehicle_id  = :vehicle_id,
+                user_id = :user_id,
                 updated_at   = NOW()
-            WHERE service_detail_id = :id",
+            WHERE route_id = :id",
             [
-                'title'   => $data['title'],
-                'content'   => $data['content'],
+                'vehicle_id'   => $data['vehicle_id'],
+                'user_id'   => $data['user_id'],
                 'id'            => $id
             ]
         );

@@ -40,7 +40,7 @@ Message::flash();
                     <td><?= $row['village_name'].', '.$row['district_name'].', '.$row['city_name'] ?></td>
                     <td><?= $row['contact_name'].' ('.$row['contact_phone'].')' ?></td>
                     <td>
-                      <a class="btn btn-warning" href="<?= BASEURL . '/admin/subscription/edit/' . $row['subscription_id'] ?>">
+                      <a class="btn btn-warning" href="<?= BASEURL . '/admin/subscription/'.$status.'/edit/' . $row['subscription_id'] ?>">
                         <i class="fas fa-copy"></i> Edit
                       </a>
                     </td>

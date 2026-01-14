@@ -20,7 +20,7 @@ if ($data) {
 <body>
     <?php Message::flash(); ?>
     <div class="h-svh p-5">
-        <div class="bg-stone-300 h-full rounded-xl text-white flex justify-center items-center">
+        <div class="bg-[url('<?= BASEURL ?>/public/image/login.jpg')] bg-cover bg-center bg-white/30 bg-blend-overlay h-full rounded-xl text-white flex justify-center items-center">
             <div class="bg-[#0A452A] w-sm p-12 rounded-xl h-fit">
                 <h1 class="text-2xl text-center font-bold">Login</h1>
                 <form action="<?= BASEURL . '/login/verify' ?>" method="post" class="">

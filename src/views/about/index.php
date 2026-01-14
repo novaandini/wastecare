@@ -1,108 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../../../public/css/global.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-<body>
-    <nav id="navbar" class="px-12 pt-8 fixed inset-x-0 top-0  bg-transparent transition-all duration-300 z-50">
-        <div class="border-b-2 border-black flex justify-between items-center pb-2">
-            <p class="font-shrikhand">WasteCare</p>
-            <ul class="flex justify-between w-2/5 items-center">
-                <li><a href="<?= BASEURL . '' ?>">Home</a></li>
-                <li class="font-bold"><a href="<?= BASEURL . '/about' ?>">About</a></li>
-                <li><a href="<?= BASEURL . '/services' ?>">Services</a></li>
-                <!-- <li><a href="<?php // echo BASEURL . '/blogs' ?>">Blogs</a></li> -->
-                <?php if (!isset($_SESSION['user'])) : ?>
-                <li><a href="<?= BASEURL . '/login' ?>" class="rounded-full border-black border-1 py-1 px-6">Login</a></li>
-                <?php else : ?>
-                    <li><a href="<?= BASEURL . '/logout' ?>" class="rounded-full border-black border-1 py-1 px-6">Logout</a></li>
-                <?php endif ?>
-            </ul>
-        </div>
-    </nav>
-    <div class="bg-gray-300 rounded-3xl m-4 px-16 py-56 flex flex-col justify-center mb-16">
-        <h1 class="md:text-8xl lg:text-9xl text-4xl font-shrikhand text-center mb-4 uppercase">About</h1>
-        <p class="md:text-2xl text-lg text-center mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, aliquid? Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus?</p>
-        <a href="" class="m-auto rounded-full border-black border-2 py-2 px-8 md:text-xl text-base font-bold">Cerita Kami</a>
-    </div>
-    <div class="w-6xl m-auto mb-16">
-        <div class="">
-            <h2 class="text-4xl font-shrikhand mb-4">Why Choose Us?</h2>
-            <p class="text-xl mb-4 w-5xl">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, aliquid? Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus?</p>
-            <div class="flex justify-between">
-                <div class="">
-                    <div class="flex justify-start mb-4 items-center">
-                        <div class="h-12 w-12 rounded-full bg-gray-300 me-2"></div>
-                        <p class="text-xl">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+<div class="bg-[url('<?= BASEURL ?>/public/image/about.jpg')] bg-cover bg-center bg-white/30 bg-blend-overlay rounded-3xl m-4 px-16 py-56 flex flex-col justify-center mb-16">
+    <h1 class="md:text-8xl lg:text-9xl text-4xl font-shrikhand text-center mb-4 uppercase">About</h1>
+    <p class="md:text-2xl text-lg text-center mb-4">WasteCare adalah lembaga independen yang berfokus pada layanan pengangkutan sampah berbasis langganan untuk komunitas lokal.</p>
+    <a href="" class="m-auto rounded-full border-black border-2 py-2 px-8 md:text-xl text-base font-bold">Cerita Kami</a>
+</div>
+<div class="w-6xl m-auto mb-16">
+    <div class="">
+        <h2 class="text-4xl font-shrikhand mb-4">Why Choose Us?</h2>
+        <p class="text-xl mb-4 w-5xl">Dengan sistem yang terstruktur dan operasional yang profesional, WasteCare mendorong lingkungan yang lebih bersih dan tertib.</p>
+        <div class="flex justify-between">
+            <div class="">
+                <div class="flex justify-start mb-4 items-center">
+                    <div class="h-12 w-12 rounded-full bg-[#0A452B] me-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="size-12">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
                     </div>
-                    <div class="flex justify-start mb-4 items-center">
-                        <div class="h-12 w-12 rounded-full bg-gray-300 me-2"></div>
-                        <p class="text-xl">Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus.</p>
-                    </div>
-                    <div class="flex justify-start mb-4 items-center">
-                        <div class="h-12 w-12 rounded-full bg-gray-300 me-2"></div>
-                        <p class="text-xl">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-                    </div>
-                    <div class="flex justify-start mb-4 items-center">
-                        <div class="h-12 w-12 rounded-full bg-gray-300 me-2"></div>
-                        <p class="text-xl">Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus</p>
-                    </div>
+                    <p class="text-xl">Sistem Berlangganan Terstruktur</p>
                 </div>
-                <div class="w-1/3 bg-gray-300 rounded-lg"></div>
-            </div>
-        </div>
-    </div>
-    <footer class="bg-[#0A452B] text-white py-8">
-        <div class="w-6xl flex justify-between m-auto">
-            <div class="w-1/3">
-                <h5 class="text-2xl font-shrikhand mb-2">WasteCare</h5>
-                <p class="text-base">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, aliquid? Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus?</p>
-            </div>
-            <div class="">
-                <h6 class="font-bold mb-2">Related Links</h6>
-                <ul>
-                    <li class="mb-2"><a href="<?= BASEURL . '/index' ?>">Home</a></li>
-                    <li class="mb-2"><a href="<?= BASEURL . '/about' ?>">About</a></li>
-                    <li class="mb-2"><a href="<?= BASEURL . '/services' ?>">Services</a></li>
-                    <li class="mb-2"><a href="<?= BASEURL . '/blogs' ?>">Blogs</a></li>
-                </ul>
-            </div>
-            <div class="">
-                <h6 class="font-bold mb-2">Social Media</h6>
-                <div class="flex">
-                    <div class="h-8 w-8 rounded-full bg-gray-300 me-2"></div>
-                    <div class="h-8 w-8 rounded-full bg-gray-300 me-2"></div>
-                    <div class="h-8 w-8 rounded-full bg-gray-300 me-2"></div>
+                <div class="flex justify-start mb-4 items-center">
+                    <div class="h-12 w-12 rounded-full bg-[#0A452B] me-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="size-12">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <p class="text-xl">Transparansi Armada & Petugas</p>
+                </div>
+                <div class="flex justify-start mb-4 items-center">
+                    <div class="h-12 w-12 rounded-full bg-[#0A452B] me-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="size-12">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <p class="text-xl">Fleksibel Sesuai Kebutuhan Wilayah</p>
+                </div>
+                <div class="flex justify-start mb-4 items-center">
+                    <div class="h-12 w-12 rounded-full bg-[#0A452B] me-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="size-12">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <p class="text-xl">Fokus pada Keberlanjutan Lingkungan</p>
                 </div>
             </div>
+            <div class="bg-[url('../../../public/image/why-choose-us.jpg')] bg-cover w-1/3 bg-gray-300 rounded-lg"></div>
         </div>
-    </footer>
-
-    <script>
-        const navbar = document.getElementById("navbar");
-        const firstDiv = document.querySelector("#navbar div");
-
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 10) {
-                navbar.classList.add("bg-[#0A452B]", "shadow", "py-4", "text-white");
-                navbar.classList.remove("bg-transparent", "pt-8", "text-black");
-                firstDiv.classList.remove("border-b-2", "border-black", "pb-2");
-                document.querySelector("#navbar div ul li:last-child a").classList.remove("border-black");
-                document.querySelector("#navbar div ul li:last-child a").classList.add("border-white");
-            } else {
-                navbar.classList.add("bg-transparent", "text-black", "pt-8");
-                navbar.classList.remove("bg-white", "shadow", "text-white");
-                firstDiv.classList.add("border-b-2", "border-black", "pb-2");
-                document.querySelector("#navbar div ul li:last-child a").classList.add("border-black");
-                document.querySelector("#navbar div ul li:last-child a").classList.remove("border-white");
-            }
-        });
-    </script>
-</body>
-</html>
+    </div>
+</div>

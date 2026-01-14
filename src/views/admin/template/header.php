@@ -127,19 +127,24 @@
                 <a href="<?= BASEURL . '/admin/subscription/pending' ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pending</p>
-                  <span class="badge badge-info right">6</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../UI/general.html" class="nav-link">
+                <a href="<?= BASEURL . '/admin/subscription/active' ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Active</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../UI/buttons.html" class="nav-link">
+                <a href="<?= BASEURL . '/admin/subscription/paused' ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive</p>
+                  <p>Paused</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= BASEURL . '/admin/subscription/ended' ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ended</p>
                 </a>
               </li>
             </ul>

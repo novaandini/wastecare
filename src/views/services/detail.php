@@ -1,48 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../../../public/css/global.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body class="font-poppins">
-    <?php
-    Message::flash();
-    ?>
-    <nav id="navbar" class="px-12 pt-8 fixed inset-x-0 top-0  bg-transparent transition-all duration-300 z-50">
-        <div class="border-b-2 border-black flex justify-between items-center pb-2">
-            <p class="font-shrikhand">WasteCare</p>
-            <ul class="flex justify-between w-2/5 items-center">
-                <li><a href="<?= BASEURL . '' ?>">Home</a></li>
-                <li><a href="<?= BASEURL . '/about' ?>">About</a></li>
-                <li class="font-bold"><a href="<?= BASEURL . '/services' ?>">Services</a></li>
-                <!-- <li><a href="<?php // BASEURL . '/blogs' ?>">Blogs</a></li> -->
-                <?php if (!isset($_SESSION['user'])) : ?>
-                    <li><a href="<?= BASEURL . '/login' ?>" class="rounded-full border-black border-1 py-1 px-6">Login</a></li>
-                <?php else : ?>
-                    <li>
-                        <button id="userMenuBtn" class="rounded-full border-black border-1 py-1 px-6 flex items-center gap-2">
-                            My Account
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div class="absolute hidden border border-1 mt-2 overflow-hidden bg-white rounded-lg text-black flex flex-col" id="userMenu">
-                            <a href="<?= BASEURL ?>" class="py-1 px-6 hover:bg-gray-200">Profile</a>
-                            <a href="<?= $_SESSION['user']['role'] == 'admin' ? BASEURL . '/admin/dashboard' : BASEURL . '/dashboard' ?>" class="py-1 px-6 hover:bg-gray-200">My Dashboard</a>
-                            <a href="<?= BASEURL ?>" class="py-1 px-6 hover:bg-gray-200">Log Out</a>
-                        </div>
-                    </li>
-                <?php endif ?>
-            </ul>
-        </div>
-    </nav>
+
     <div class="rounded-3xl mx-12 mt-32 flex mb-16 gap-16">
         <div class="w-1/3 rounded-xl bg-cover bg-center" style="background-image: url('<?= BASEURL . ($data['image'] ? '/public/uploads/services/' . $data['image'] : '/assets/img/default-service.jpg') ?>');"></div>
         <div class="w-2/3">
@@ -192,66 +148,7 @@
         </fieldset>
     </form>
 
-    <footer class="bg-[#0A452B] text-white py-8">
-        <div class="w-6xl flex justify-between m-auto">
-            <div class="w-1/3">
-                <h5 class="text-2xl font-shrikhand mb-2">WasteCare</h5>
-                <p class="text-base">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, aliquid? Perspiciatis nulla eius dolor asperiores repellat velit nam ratione natus?</p>
-            </div>
-            <div class="">
-                <h6 class="font-bold mb-2">Related Links</h6>
-                <ul>
-                    <li class="mb-2"><a href="<?= BASEURL . '/index' ?>">Home</a></li>
-                    <li class="mb-2"><a href="<?= BASEURL . '/about' ?>">About</a></li>
-                    <li class="mb-2"><a href="<?= BASEURL . '/services' ?>">Services</a></li>
-                    <li class="mb-2"><a href="<?= BASEURL . '/blogs' ?>">Blogs</a></li>
-                </ul>
-            </div>
-            <div class="">
-                <h6 class="font-bold mb-2">Social Media</h6>
-                <div class="flex">
-                    <div class="h-8 w-8 rounded-full bg-gray-300 me-2"></div>
-                    <div class="h-8 w-8 rounded-full bg-gray-300 me-2"></div>
-                    <div class="h-8 w-8 rounded-full bg-gray-300 me-2"></div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        const navbar = document.getElementById("navbar");
-        const firstDiv = document.querySelector("#navbar div");
-
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 10) {
-                navbar.classList.add("bg-[#0A452B]", "shadow", "py-4", "text-white");
-                navbar.classList.remove("bg-transparent", "pt-8", "text-black");
-                firstDiv.classList.remove("border-b-2", "border-black", "pb-2");
-                document.querySelector("#navbar div ul li:last-child button").classList.remove("border-black");
-                document.querySelector("#navbar div ul li:last-child button").classList.add("border-white");
-            } else {
-                navbar.classList.add("bg-transparent", "text-black", "pt-8");
-                navbar.classList.remove("bg-white", "shadow", "text-white");
-                firstDiv.classList.add("border-b-2", "border-black", "pb-2");
-                document.querySelector("#navbar div ul li:last-child button").classList.add("border-black");
-                document.querySelector("#navbar div ul li:last-child button").classList.remove("border-white");
-            }
-        });
-
-        const btn = document.getElementById('userMenuBtn');
-        const menu = document.getElementById('userMenu');
-
-        if (btn && menu) {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                menu.classList.toggle('hidden');
-            });
-
-            document.addEventListener('click', () => {
-                menu.classList.add('hidden');
-            });
-        }
-
         const loggedUser = <?= json_encode([
             'name'  => $_SESSION['user']['name'] ?? '',
             'phone_number' => $_SESSION['user']['phone_number'] ?? '',
@@ -277,5 +174,3 @@
             }
         });
     </script>
-</body>
-</html>

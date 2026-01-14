@@ -11,6 +11,8 @@ class HomeController extends BaseController {
         $data = [
             'services' => $this->serviceModel->getAll(),
         ];
+        $this->view('template/header');
         $this->view('home/index', $data);
+        $this->view('template/footer');
     }
 }

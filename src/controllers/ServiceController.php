@@ -20,9 +20,12 @@ class ServiceController extends BaseController {
     public function index() {
         $data = [
             'services' => $this->serviceModel->getAll(),
+            'regions' => $this->regionModel->getAll()
         ];
 
+        $this->view('template/header');
         $this->view('services/index', $data);
+        $this->view('template/footer');
     }
 
     public function detail($id) {
@@ -32,7 +35,9 @@ class ServiceController extends BaseController {
             'regions' => $this->regionModel->getAll(),
             'isLoggedIn' => isset($_SESSION['user'])
         ];
+        $this->view('template/header');
         $this->view('services/detail', $data);
+        $this->view('template/footer');
     }
 
     public function subscribe() {

@@ -19,6 +19,14 @@ class SubscriptionModel extends Database {
         )->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getByUser($userId)
+    {
+        return $this->qry(
+            "SELECT * FROM subscriptions WHERE user_id = :user_id",
+            ['user_id' => $userId]
+        )->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getByStatus($status)
     {
         return $this->qry(
@@ -57,23 +65,17 @@ class SubscriptionModel extends Database {
     public function update($id, $data) {
         return $this->qry(
             "UPDATE subscriptions SET
-                service_package_id  = :service_package_id,
-                total_kk = :total_kk,
+                status  = :status,
+                start_date = :start_date,
+                end_date = :end_date,
                 updated_at   = NOW()
-            WHERE service_detail_id = :id",
+            WHERE subscription_id = :id",
             [
-                'service_package_id'   => $data['service_package_id'],
-                'total_kk'   => $data['total_kk'],
+                'status'   => $data['status'],
+                'start_date'   => $data['start_date'],
+                'end_date'   => $data['end_date'],
                 'id'            => $id
             ]
-        );
-    }
-
-    public function delete($id)
-    {
-        $this->qry(
-            "DELETE FROM subscriptions WHERE service_detail_id = :id",
-            ['id' => $id]
         );
     }
 }

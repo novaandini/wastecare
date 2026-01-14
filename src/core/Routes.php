@@ -21,13 +21,17 @@ class Routes {
 
         $router->get('institution/register', ['AuthController', 'institution_form']);
         $router->post('institution/register/store', ['AuthController', 'institution_register']);
+        
+        $router->get('subscription', ['SubscriptionController', 'index']);
+        $router->get('subscription/detail/(:id)', ['SubscriptionController', 'detail']);
 
         $router->get('logout', ['AuthController', 'logout']);
 
         // Admin routes
         $router->get('admin/dashboard', ['AdminDashboardController', 'index']);
 
-        $router->get('admin/subscription/edit/(:id)', ['AdminSubsciptionController', 'edit']);
+        $router->get('admin/subscription/(:id)/edit/(:id)', ['AdminSubsciptionController', 'edit']);
+        $router->post('admin/subscription/(:id)/update/(:id)', ['AdminSubsciptionController', 'update']);
         $router->get('admin/subscription/(:id)', ['AdminSubsciptionController', 'index']);
 
         $router->get('manage_vehicles', ['AdminVehicleController', 'index']);
